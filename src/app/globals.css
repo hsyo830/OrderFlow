@@ -285,3 +285,12 @@ body {
     @apply font-sans;
   }
 }
+
+@layer components {
+  .subtitle {
+    @apply text-xl font-bold;
+  }
+  .link-button {
+    @apply text-brand cursor-pointer text-sm font-medium;
+  }
+}
