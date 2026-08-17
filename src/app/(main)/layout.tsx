@@ -1,4 +1,5 @@
-import Header from "@/components/common/Header";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 
 const MainLayout = ({
   children,
@@ -9,6 +10,7 @@ const MainLayout = ({
     <>
       <Header />
       {children}
+      <Footer />
     </>
   );
 };
