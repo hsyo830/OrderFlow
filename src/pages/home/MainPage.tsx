@@ -3,6 +3,7 @@ import Container from "@/components/layout/Container";
 import CategoryList from "./components/CategoryList";
 import MainBanner from "./components/MainBanner";
 import SearchBar from "./components/SearchBar";
+import ServiceBannerList from "./components/service-banner/ServiceBannerList";
 
 const MainPage = () => {
   return (
@@ -13,7 +14,10 @@ const MainPage = () => {
       </div>
       <div className="mt-10 flex justify-center">
         <Container>
-          <CategoryList />
+          <div className="flex flex-col gap-15">
+            <CategoryList />
+            <ServiceBannerList />
+          </div>
         </Container>
       </div>
     </div>

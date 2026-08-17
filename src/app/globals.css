@@ -54,6 +54,8 @@
   --color-brand-soft: #f0edff; /* 선택된 탭 / badge 배경 */
   --color-brand-soft-hover: #e8e3ff;
 
+  --color-brand-dark: #21145f;
+
   /* =========================
      Primary CTA
   ========================= */
@@ -193,6 +195,7 @@
   --color-brand-active: var(--color-brand-active);
   --color-brand-soft: var(--color-brand-soft);
   --color-brand-soft-hover: var(--color-brand-soft-hover);
+  --color-brand-dark: var(--color-brand-dark);
 
   /* Primary */
   --color-primary: var(--color-primary);
