@@ -8,11 +8,11 @@ import KidsIcon from "@/components/icons/CategoryIcons/KidsIcon";
 import LectureIcon from "@/components/icons/CategoryIcons/LectureIcon";
 import MusicalIcon from "@/components/icons/CategoryIcons/MusicalIcon";
 
-export interface Category {
+type Category = {
   id: string;
   title: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-}
+};
 
 export const categories = [
   {
@@ -50,4 +50,6 @@ export const categories = [
     title: "기타",
     icon: EtcIcon,
   },
-] as const;
+] as const satisfies readonly Category[];
+
+export type TicketCategory = (typeof categories)[number]["id"];
