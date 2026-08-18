@@ -22,6 +22,7 @@ const TicketAlertCard = () => {
           src="/images/illustrations/bell-notification.png"
           alt="알림 벨 이미지"
           fill
+          sizes="(min-width: 1280px) 140px, 120px"
           className="object-cover"
         />
       </div>

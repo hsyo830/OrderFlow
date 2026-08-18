@@ -24,6 +24,7 @@ const QueueServiceCard = () => {
           src="/images/illustrations/time-queue.png"
           alt="실시간 대기열 일러스트"
           fill
+          sizes="(min-width: 1280px) 140px, 120px"
           className="object-cover"
         />
       </div>

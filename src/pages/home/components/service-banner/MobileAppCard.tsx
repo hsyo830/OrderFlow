@@ -22,6 +22,7 @@ const MobileAppCard = () => {
           src="/images/illustrations/app-mobile.png"
           alt="모바일 앱 화면"
           fill
+          sizes="(min-width: 1280px) 140px, 120px"
           className="object-cover"
         />
       </div>
