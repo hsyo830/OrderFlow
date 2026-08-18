@@ -1,7 +1,9 @@
+import MainPage from "@/pages/home/MainPage";
+
 const Home = () => {
   return (
     <main>
-      <h1 className="text-primary">OrderFlow</h1>
+      <MainPage />
     </main>
   );
 };

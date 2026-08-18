@@ -54,6 +54,8 @@
   --color-brand-soft: #f0edff; /* 선택된 탭 / badge 배경 */
   --color-brand-soft-hover: #e8e3ff;
 
+  --color-brand-dark: #21145f;
+
   /* =========================
      Primary CTA
   ========================= */
@@ -90,6 +92,7 @@
   --color-dark-button: #121d2f;
   --color-dark-button-hover: #19263a;
   --color-dark-button-foreground: #ffffff;
+  --color-dark-button-opacity: rgba(18, 29, 47, 0.5);
 
   --color-dark-muted: #9ca6b7;
 
@@ -193,6 +196,7 @@
   --color-brand-active: var(--color-brand-active);
   --color-brand-soft: var(--color-brand-soft);
   --color-brand-soft-hover: var(--color-brand-soft-hover);
+  --color-brand-dark: var(--color-brand-dark);
 
   /* Primary */
   --color-primary: var(--color-primary);
@@ -283,5 +287,14 @@ body {
 
   html {
     @apply font-sans;
+  }
+}
+
+@layer components {
+  .subtitle {
+    @apply text-xl font-bold;
+  }
+  .link-button {
+    @apply text-brand cursor-pointer text-sm font-medium;
   }
 }
