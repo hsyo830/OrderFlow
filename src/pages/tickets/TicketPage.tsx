@@ -1,4 +1,7 @@
+import Container from "@/components/layout/Container";
+
 import SearchBar from "../home/components/SearchBar";
+import TicketList from "./components/TicketList";
 import TicketsTopBanner from "./components/TicketsTopBanner";
 
 const TicketPage = () => {
@@ -7,6 +10,11 @@ const TicketPage = () => {
       <TicketsTopBanner />
       <div className="relative z-10 -mt-8 md:-mt-9">
         <SearchBar />
+      </div>
+      <div className="mt-10 flex justify-center">
+        <Container>
+          <TicketList />
+        </Container>
       </div>
     </div>
   );
