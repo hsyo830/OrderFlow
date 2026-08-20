@@ -12,7 +12,7 @@ const CategoryFilterList = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("all");
 
   return (
-    <div className="mb-3.5 flex scrollbar-none gap-2 overflow-x-scroll">
+    <div className="mb-3.5 flex scrollbar-none gap-2 overflow-x-scroll md:mb-7">
       <CategoryFilterItem
         isSelected={selectedCategory === "all"}
         onClick={() => setSelectedCategory("all")}
