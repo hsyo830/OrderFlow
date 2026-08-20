@@ -15,8 +15,8 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
   const dataCategory = category?.title ?? "";
 
   return (
-    <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-x-4 gap-y-4 rounded-xl border border-gray-200 p-4 lg:grid-cols-[205px_minmax(0,1fr)_115px_120px] lg:items-center lg:gap-5 lg:p-3">
-      <div className="relative h-30 w-30 overflow-hidden rounded-lg lg:h-40 lg:w-50">
+    <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-x-4 gap-y-2 rounded-xl border border-gray-200 p-4 lg:grid-cols-[205px_minmax(0,1fr)_115px_120px] lg:items-center lg:gap-5 lg:p-3">
+      <div className="relative h-32 w-30 overflow-hidden rounded-lg lg:h-40 lg:w-50">
         <Image
           src={data.image}
           alt={data.title}
@@ -42,11 +42,13 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
       </div>
 
       <div className="self-center lg:self-auto">
-        <span className="font-semibold">₩ {data.price.toLocaleString("ko-KR")}</span>
+        <span className="font-semibold">₩ {data.price.toLocaleString("ko-KR")} ~</span>
       </div>
 
       <div className="flex items-center justify-end">
-        <Button variant="primary">예매하기</Button>
+        <Button variant="primary" className="w-full">
+          예매하기
+        </Button>
       </div>
     </div>
   );
