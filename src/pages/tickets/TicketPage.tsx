@@ -1,6 +1,7 @@
 import Container from "@/components/layout/Container";
 
 import SearchBar from "../home/components/SearchBar";
+import CategoryFilterList from "./components/CategoryFilterList";
 import TicketList from "./components/TicketList";
 import TicketsTopBanner from "./components/TicketsTopBanner";
 
@@ -13,6 +14,7 @@ const TicketPage = () => {
       </div>
       <div className="mt-10 flex justify-center">
         <Container>
+          <CategoryFilterList />
           <TicketList />
         </Container>
       </div>
