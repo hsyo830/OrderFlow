@@ -1,4 +1,4 @@
-type BadgeVariant = "basic" | "darkOpacity";
+type BadgeVariant = "basic" | "darkOpacity" | "soft";
 
 type BadgeProps = {
   variant?: BadgeVariant;
@@ -16,11 +16,15 @@ const Badge = ({ variant = "basic", text, className = "" }: BadgeProps) => {
       backgroundColor: "var(--color-dark-button-opacity)",
       color: "var(--color-dark-button-foreground)",
     },
+    soft: {
+      backgroundColor: "var(--color-brand-soft)",
+      color: "var(--color-brand)",
+    },
   };
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-bold tracking-wide md:px-3 md:py-1 md:text-xs ${className}`}
+      className={`inline-flex items-center rounded-sm px-1.5 py-0.5 text-[10px] font-semibold tracking-wide md:px-3 md:py-1 md:text-sm ${className}`}
       style={variantStyles[variant]}
     >
       {text}
