@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import MenuIcon from "../icons/MenuIcon";
 import UserIcon from "../icons/UserIcon";
 import Container from "./Container";
@@ -18,7 +20,9 @@ const Header = () => {
 
           <div className="flex items-center gap-4 md:gap-7">
             <MenuIcon className="text-brand cursor-pointer lg:hidden" />
-            <UserIcon className="text-brand cursor-pointer" />
+            <Link href="/login">
+              <UserIcon className="text-brand cursor-pointer" />
+            </Link>
           </div>
         </div>
       </Container>
