@@ -12,3 +12,16 @@ export type Ticket = {
   location: string;
   price: number;
 };
+
+export type TicketDetail = Ticket & {
+  description: string;
+
+  performanceInfo: {
+    duration: number;
+    ageLimit: string;
+    organizer: string;
+    delivery: string;
+  };
+
+  notices: string[];
+};
