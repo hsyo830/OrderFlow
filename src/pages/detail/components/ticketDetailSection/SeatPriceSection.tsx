@@ -2,7 +2,7 @@ const SeatPriceSection = () => {
   const price = 165000;
 
   return (
-    <div className="flex flex-col gap-3 md:col-span-2">
+    <div className="mb-2 flex flex-col gap-3 md:col-span-2 md:mb-7">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">좌석 및 가격</h3>
         <p className="text-muted text-sm font-medium">* VAT 포함</p>

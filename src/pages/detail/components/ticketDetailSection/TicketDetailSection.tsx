@@ -7,10 +7,10 @@ import TicketNotice from "./TicketNotice";
 
 const TicketDetailSection = () => {
   return (
-    <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
       <TicketIntroduction />
       <TicketInformation />
-      <div className="mb-2 md:col-span-2 md:mb-3">
+      <div className="md:col-span-2">
         <TicketNotice />
       </div>
       <SeatPriceSection />
