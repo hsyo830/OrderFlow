@@ -5,23 +5,35 @@ export type Ticket = {
   title: string;
   image: string;
   category: TicketCategory;
-  date: {
-    start: string;
-    end: string;
-  };
-  location: string;
+  start_date: string;
+  end_date: string;
+  venue_id: number;
+  description: string;
+  duration: number;
+  age_limit: string;
+  organizer: string;
+  delivery: string;
+};
+
+export type TicketSeatGrade = {
+  id: number;
+  ticket_id: number;
+  grade: "VIP" | "R" | "S";
   price: number;
 };
 
+export type Venue = {
+  id: number;
+  name: string;
+  address: string;
+};
+
+export type TicketListData = Ticket & {
+  venues: Pick<Venue, "name">;
+  ticket_seat_grades: TicketSeatGrade[];
+};
+
 export type TicketDetail = Ticket & {
-  description: string;
-
-  performanceInfo: {
-    duration: number;
-    ageLimit: string;
-    organizer: string;
-    delivery: string;
-  };
-
-  notices: string[];
+  venue: Venue;
+  seat_grades: TicketSeatGrade[];
 };
