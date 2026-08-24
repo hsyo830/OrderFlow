@@ -116,10 +116,49 @@
      Seat Status
   ========================= */
 
-  --color-seat-available: #ffffff;
-  --color-seat-selected: #6548f5;
   --color-seat-sold: #525b6c;
   --color-seat-unavailable: #e96791;
+
+  /* =========================
+   Seat Grade
+========================= */
+
+  /* VIP */
+  --color-seat-vip: #7c3aed;
+  --color-seat-vip-hover: #8b5cf6;
+  --color-seat-vip-soft: rgba(124, 58, 237, 0.16);
+  --color-seat-vip-selected: #6d28d9;
+  --color-seat-vip-selected-border: #a78bfa;
+  --color-seat-vip-glow: rgba(124, 58, 237, 0.35);
+
+  /* R */
+  --color-seat-r: #2563eb;
+  --color-seat-r-hover: #3b82f6;
+  --color-seat-r-soft: rgba(37, 99, 235, 0.16);
+  --color-seat-r-selected: #1d4ed8;
+  --color-seat-r-selected-border: #60a5fa;
+  --color-seat-r-glow: rgba(37, 99, 235, 0.35);
+
+  /* S */
+  --color-seat-s: #14b8a6;
+  --color-seat-s-hover: #2dd4bf;
+  --color-seat-s-soft: rgba(20, 184, 166, 0.16);
+  --color-seat-s-selected: #0f9488;
+  --color-seat-s-selected-border: #5eead4;
+  --color-seat-s-glow: rgba(20, 184, 166, 0.35);
+
+  /* =========================
+   Seat State
+========================= */
+
+  /* 등급과 무관한 공통 상태 */
+  --color-seat-sold: #525b6c;
+  --color-seat-unavailable: #e96791;
+
+  /* disabled 내부 표현 */
+  --color-seat-disabled-bg: #121d2f;
+  --color-seat-disabled-border: #394458;
+  --color-seat-disabled-text: #667085;
 
   /* =========================
      shadcn/ui
@@ -233,11 +272,33 @@
   --color-info: var(--color-info);
   --color-info-soft: var(--color-info-soft);
 
-  /* Seat */
-  --color-seat-available: var(--color-seat-available);
-  --color-seat-selected: var(--color-seat-selected);
+  /* Seat Grade - VIP */
+  --color-seat-vip: var(--color-seat-vip);
+  --color-seat-vip-hover: var(--color-seat-vip-hover);
+  --color-seat-vip-soft: var(--color-seat-vip-soft);
+  --color-seat-vip-selected: var(--color-seat-vip-selected);
+  --color-seat-vip-selected-border: var(--color-seat-vip-selected-border);
+
+  /* Seat Grade - R */
+  --color-seat-r: var(--color-seat-r);
+  --color-seat-r-hover: var(--color-seat-r-hover);
+  --color-seat-r-soft: var(--color-seat-r-soft);
+  --color-seat-r-selected: var(--color-seat-r-selected);
+  --color-seat-r-selected-border: var(--color-seat-r-selected-border);
+
+  /* Seat Grade - S */
+  --color-seat-s: var(--color-seat-s);
+  --color-seat-s-hover: var(--color-seat-s-hover);
+  --color-seat-s-soft: var(--color-seat-s-soft);
+  --color-seat-s-selected: var(--color-seat-s-selected);
+  --color-seat-s-selected-border: var(--color-seat-s-selected-border);
+
+  /* Seat State */
   --color-seat-sold: var(--color-seat-sold);
   --color-seat-unavailable: var(--color-seat-unavailable);
+  --color-seat-disabled-bg: var(--color-seat-disabled-bg);
+  --color-seat-disabled-border: var(--color-seat-disabled-border);
+  --color-seat-disabled-text: var(--color-seat-disabled-text);
 
   /* shadcn */
   --color-card: var(--card);
