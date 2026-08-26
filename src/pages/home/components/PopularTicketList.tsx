@@ -1,9 +1,21 @@
-import { tickets } from "@/constants/mocks/tickets";
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+
+import { fetchTickets } from "@/services/ticketService";
 
 import PopularTicketCard from "./PopularTicketCard";
 
 const PopularTicketList = () => {
-  const visibleTickets = tickets.slice(0, 5);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["tickets"],
+    queryFn: () => fetchTickets(),
+  });
+
+  if (isLoading) return <div>불러오는 중...</div>;
+  if (error) return <div>티켓을 불러오지 못했습니다.</div>;
+
+  const visibleTickets = data?.slice(0, 5);
 
   return (
     <div className="flex w-full flex-col gap-3.5">
@@ -12,7 +24,7 @@ const PopularTicketList = () => {
         <div className="link-button">더보기 &gt;</div>
       </div>
       <div className="flex gap-3">
-        {visibleTickets.map((item, index) => (
+        {visibleTickets?.map((item, index) => (
           <div
             key={item.id}
             className={

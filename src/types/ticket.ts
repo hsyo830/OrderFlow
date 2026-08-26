@@ -15,7 +15,7 @@ export type Ticket = {
   delivery: string;
 };
 
-export type TicketSeatGrade = {
+export type TicketGradePrice = {
   id: number;
   ticket_id: number;
   grade: "VIP" | "R" | "S";
@@ -30,10 +30,10 @@ export type Venue = {
 
 export type TicketListData = Ticket & {
   venues: Pick<Venue, "name">;
-  ticket_seat_grades: TicketSeatGrade[];
+  ticket_grade_price: Pick<TicketGradePrice, "price">[];
 };
 
 export type TicketDetail = Ticket & {
   venue: Venue;
-  seat_grades: TicketSeatGrade[];
+  seat_grades: TicketGradePrice[];
 };

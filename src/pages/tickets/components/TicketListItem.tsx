@@ -14,7 +14,7 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
 
   const dataCategory = category?.title ?? "";
 
-  const minPrice = Math.min(...data.ticket_seat_grades.map((seatGrade) => seatGrade.price));
+  const minPrice = Math.min(...data.ticket_grade_price.map((seatGrade) => seatGrade.price));
 
   return (
     <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-x-4 gap-y-2 rounded-xl border border-gray-200 p-4 lg:grid-cols-[205px_minmax(0,1fr)_115px_120px] lg:items-center lg:gap-5 lg:p-3">
