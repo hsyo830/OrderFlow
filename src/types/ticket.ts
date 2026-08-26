@@ -34,6 +34,6 @@ export type TicketListData = Ticket & {
 };
 
 export type TicketDetail = Ticket & {
-  venue: Venue;
-  seat_grades: TicketGradePrice[];
+  venues: Pick<Venue, "name">;
+  ticket_grade_price: TicketGradePrice[];
 };
