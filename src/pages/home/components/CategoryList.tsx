@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { categories } from "@/constants/Category";
 
 import CategoryButton from "./CategoryButton";
@@ -10,7 +12,9 @@ const CategoryList = () => {
     <div className="flex w-full flex-col gap-3.5">
       <div className="flex items-center justify-between">
         <h3 className="subtitle">카테고리</h3>
-        <div className="link-button">전체보기 &gt;</div>
+        <Link href="/tickets">
+          <div className="link-button">전체보기 &gt;</div>
+        </Link>
       </div>
       <div className="flex gap-1">
         {categories.map((category) => (

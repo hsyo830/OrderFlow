@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Badge from "@/components/common/Badge";
 import Button from "@/components/common/Button";
@@ -47,11 +48,13 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
         <span className="font-semibold">₩ {minPrice.toLocaleString("ko-KR")} ~</span>
       </div>
 
-      <div className="flex items-center justify-end">
-        <Button variant="primary" className="w-full">
-          예매하기
-        </Button>
-      </div>
+      <Link href={`/tickets/${data.id}`}>
+        <div className="flex items-center justify-end">
+          <Button variant="primary" className="w-full">
+            예매하기
+          </Button>
+        </div>
+      </Link>
     </div>
   );
 };

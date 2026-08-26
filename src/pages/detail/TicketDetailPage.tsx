@@ -14,7 +14,7 @@ const TicketDetailPage = () => {
   const ticketId = Number(params?.id);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["tickets"],
+    queryKey: ["tickets", ticketId],
     queryFn: () => fetchTicketDetail(ticketId),
   });
 

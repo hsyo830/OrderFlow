@@ -1,6 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-
 import Button from "@/components/common/Button";
 import { TicketDetail } from "@/types/ticket";
 
