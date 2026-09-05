@@ -15,11 +15,11 @@ const LoginPage = () => {
         <div className="text-2xl font-bold">로그인</div>
 
         <div>
-          <div className="mb-1.5 text-base font-bold">아이디</div>
+          <div className="mb-1.5 text-base font-bold">이메일</div>
           <input
-            type="text"
+            type="email"
             className="hover:border-input-border-hover active:border-input-border-hover border-border bg-input w-85 rounded-md border p-3 text-sm"
-            placeholder="아이디를 입력해주세요."
+            placeholder="이메일을 입력해주세요."
           />
 
           <div className="mt-5 mb-1.5 text-base font-bold">비밀번호</div>
