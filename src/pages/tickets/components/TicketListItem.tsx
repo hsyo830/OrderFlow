@@ -1,18 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Badge from "@/components/common/Badge";
 import Button from "@/components/common/Button";
 import { categories } from "@/constants/Category";
-import { Ticket } from "@/types/ticket";
+import { TicketListData } from "@/types/ticket";
 
 type TicketListItemProps = {
-  data: Ticket;
+  data: TicketListData;
 };
 
 const TicketListItem = ({ data }: TicketListItemProps) => {
   const category = categories.find((category) => category.id === data.category);
 
   const dataCategory = category?.title ?? "";
+
+  const minPrice = Math.min(...data.ticket_grade_price.map((seatGrade) => seatGrade.price));
 
   return (
     <div className="grid grid-cols-[120px_minmax(0,1fr)] gap-x-4 gap-y-2 rounded-xl border border-gray-200 p-4 lg:grid-cols-[205px_minmax(0,1fr)_115px_120px] lg:items-center lg:gap-5 lg:p-3">
@@ -30,10 +33,10 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
         <h3 className="font-semibold lg:truncate">{data.title}</h3>
         <div className="flex flex-col text-sm text-gray-500 lg:flex-row lg:items-center lg:gap-2">
           <span>
-            {data.date.start} ~ {data.date.end}
+            {data.start_date} ~ {data.end_date}
           </span>
           <span className="hidden lg:inline">|</span>
-          <span>{data.location}</span>
+          <span>{data.venues.name}</span>
         </div>
 
         <div>
@@ -42,14 +45,16 @@ const TicketListItem = ({ data }: TicketListItemProps) => {
       </div>
 
       <div className="self-center lg:self-auto">
-        <span className="font-semibold">₩ {data.price.toLocaleString("ko-KR")} ~</span>
+        <span className="font-semibold">₩ {minPrice.toLocaleString("ko-KR")} ~</span>
       </div>
 
-      <div className="flex items-center justify-end">
-        <Button variant="primary" className="w-full">
-          예매하기
-        </Button>
-      </div>
+      <Link href={`/tickets/${data.id}`}>
+        <div className="flex items-center justify-end">
+          <Button variant="primary" className="w-full">
+            예매하기
+          </Button>
+        </div>
+      </Link>
     </div>
   );
 };

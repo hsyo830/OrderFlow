@@ -3,8 +3,8 @@ import type { Ticket } from "@/types/ticket";
 export const tickets: Ticket[] = [
   {
     id: 1,
-    title: "HIU CONCERT THE WINNING",
-    image: "/images/tickets/hiu-concert-cover.png",
+    title: "IU CONCERT THE WINNING",
+    image: "/images/tickets/iu-concert-cover.png",
     category: "concert",
     date: {
       start: "2026-10-01",

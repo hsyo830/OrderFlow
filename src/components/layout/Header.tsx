@@ -9,7 +9,9 @@ const Header = () => {
     <header className="flex w-full items-center justify-center border-b">
       <Container>
         <div className="flex w-full items-center justify-between py-5">
-          <div className="text-brand cursor-pointer text-xl font-bold">TICKET</div>
+          <Link href="/">
+            <div className="text-brand cursor-pointer text-xl font-bold">TICKET</div>
+          </Link>
 
           <div className="hidden cursor-pointer items-center gap-9 md:text-sm md:font-medium lg:flex">
             <div className="hover:text-brand-hover active:text-brand-active">홈</div>
