@@ -11,6 +11,7 @@ type AuthProviderProps = {
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const setUser = useAuthStore((state) => state.setUser);
+  const setIsInitialized = useAuthStore((state) => state.setIsInitialized);
 
   useEffect(() => {
     const supabase = createClient();
@@ -21,10 +22,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       } = await supabase.auth.getSession();
 
       setUser(session?.user ?? null);
+      setIsInitialized(true);
     };
 
     getSession();
-  }, [setUser]);
+  }, [setUser, setIsInitialized]);
 
   return children;
 };
