@@ -1,14 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Button from "@/components/common/Button";
 import EyeIcon from "@/components/icons/EyeIcon";
 import EyeOffIcon from "@/components/icons/EyeOffIcon";
 import { createClient } from "@/lib/supabase/client";
+import { useAuthStore } from "@/stores/authStore";
 import { validateEmail, validatePassword, validatePasswordConfirm } from "@/utils/validator";
 
 const SignupPage = () => {
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -59,7 +65,10 @@ const SignupPage = () => {
       return;
     }
 
-    console.log(data);
+    if (data.user) {
+      setUser(data.user);
+      router.replace("/");
+    }
   };
 
   return (
@@ -131,12 +140,9 @@ const SignupPage = () => {
             <p className="text-danger mt-1.5 text-sm">{passwordConfirmError}</p>
           )}
 
-          <button
-            type="submit"
-            className="bg-primary hover:bg-primary-hover active:bg-primary-active text-inverse mt-7 w-full cursor-pointer rounded-md py-3"
-          >
+          <Button type="submit" variant="primary" className="mt-7 w-full">
             회원가입
-          </button>
+          </Button>
         </form>
 
         <div>

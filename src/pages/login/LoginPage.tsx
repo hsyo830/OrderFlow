@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Button from "@/components/common/Button";
 import EyeIcon from "@/components/icons/EyeIcon";
 import EyeOffIcon from "@/components/icons/EyeOffIcon";
 import { createClient } from "@/lib/supabase/client";
@@ -10,6 +12,8 @@ import { useAuthStore } from "@/stores/authStore";
 import { validateEmail, validatePassword } from "@/utils/validator";
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,6 +59,7 @@ const LoginPage = () => {
     }
 
     setUser(data.user);
+    router.replace("/");
   };
 
   return (
@@ -98,12 +103,9 @@ const LoginPage = () => {
           {passwordError && <p className="text-danger mt-1.5 text-sm">{passwordError}</p>}
 
           {loginError && <p className="text-danger mt-3 text-sm">{loginError}</p>}
-          <button
-            type="submit"
-            className="bg-primary hover:bg-primary-hover active:bg-primary-active text-inverse mt-10 w-full cursor-pointer rounded-md py-3"
-          >
+          <Button type="submit" variant="primary" className="mt-10 w-full">
             로그인
-          </button>
+          </Button>
         </form>
 
         <div>
