@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 
+import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 
 export const metadata: Metadata = {
@@ -16,9 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <QueryProvider>
-        <body>{children}</body>
-      </QueryProvider>
+      <body>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }
