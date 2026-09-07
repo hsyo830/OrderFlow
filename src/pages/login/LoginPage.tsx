@@ -6,6 +6,7 @@ import { useState } from "react";
 import EyeIcon from "@/components/icons/EyeIcon";
 import EyeOffIcon from "@/components/icons/EyeOffIcon";
 import { createClient } from "@/lib/supabase/client";
+import { useAuthStore } from "@/stores/authStore";
 import { validateEmail, validatePassword } from "@/utils/validator";
 
 const LoginPage = () => {
@@ -16,6 +17,8 @@ const LoginPage = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
+
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +44,7 @@ const LoginPage = () => {
 
     const supabase = createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -50,6 +53,8 @@ const LoginPage = () => {
       setLoginError("이메일 또는 비밀번호가 올바르지 않습니다.");
       return;
     }
+
+    setUser(data.user);
   };
 
   return (
