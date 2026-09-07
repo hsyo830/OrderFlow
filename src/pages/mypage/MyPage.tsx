@@ -17,7 +17,7 @@ const MyPage = () => {
 
   useEffect(() => {
     if (isInitialized && !user) {
-      router.replace("/login");
+      router.replace("/");
     }
   }, [isInitialized, user, router]);
 
