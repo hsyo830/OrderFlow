@@ -1,4 +1,4 @@
-import TicketDetailPage from "@/pages/detail/TicketDetailPage";
+import TicketDetailPage from "@/views/detail/TicketDetailPage";
 
 const TicketDetail = () => {
   return (

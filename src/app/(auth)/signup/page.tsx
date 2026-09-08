@@ -1,4 +1,4 @@
-import SignupPage from "@/pages/signup/SignupPage";
+import SignupPage from "@/views/signup/SignupPage";
 
 const signup = () => {
   return (

@@ -1,4 +1,4 @@
-import { Category } from "@/constants/Category";
+import type { Category } from "@/constants/Category";
 import { cn } from "@/lib/cn/utils";
 
 type CategoryButtonProps = {
