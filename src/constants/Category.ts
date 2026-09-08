@@ -8,7 +8,7 @@ import KidsIcon from "@/components/icons/CategoryIcons/KidsIcon";
 import LectureIcon from "@/components/icons/CategoryIcons/LectureIcon";
 import MusicalIcon from "@/components/icons/CategoryIcons/MusicalIcon";
 
-type Category = {
+export type Category = {
   id: string;
   title: string;
   icon: ComponentType<SVGProps<SVGSVGElement>>;

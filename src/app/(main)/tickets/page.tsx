@@ -1,4 +1,4 @@
-import TicketPage from "@/pages/tickets/TicketPage";
+import TicketPage from "@/views/tickets/TicketPage";
 
 const Tickets = () => {
   return (
