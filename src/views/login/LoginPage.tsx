@@ -63,23 +63,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="border-border flex flex-col items-center gap-10 rounded-md border px-10 py-15">
+    <div className="flex min-h-screen items-center justify-center px-4 py-10">
+      <div className="border-border flex w-full max-w-md flex-col items-center gap-10 rounded-md border px-6 py-10 sm:px-10 sm:py-15">
         <div className="text-2xl font-bold">로그인</div>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="mb-1.5 text-base font-bold">이메일</div>
+        <form onSubmit={handleSubmit} noValidate className="w-full">
+          <div className="mb-2 text-base font-bold">이메일</div>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="hover:border-input-border-hover active:border-input-border-hover border-border bg-input w-85 rounded-md border p-3 text-sm"
+            className="hover:border-input-border-hover active:border-input-border-hover border-border bg-input w-full rounded-md border p-3 text-sm"
             placeholder="이메일을 입력해주세요."
           />
           {emailError && <p className="text-danger mt-1.5 text-sm">{emailError}</p>}
 
-          <div className="mt-5 mb-1.5 text-base font-bold">비밀번호</div>
-          <div className="relative w-85">
+          <div className="mt-6 mb-2 text-base font-bold">비밀번호</div>
+          <div className="relative w-full">
             <input
               type={showPassword ? "text" : "password"}
               value={password}
@@ -103,7 +103,7 @@ const LoginPage = () => {
           {passwordError && <p className="text-danger mt-1.5 text-sm">{passwordError}</p>}
 
           {loginError && <p className="text-danger mt-3 text-sm">{loginError}</p>}
-          <Button type="submit" variant="primary" className="mt-10 w-full">
+          <Button type="submit" variant="primary" className="mt-8 w-full">
             로그인
           </Button>
         </form>
