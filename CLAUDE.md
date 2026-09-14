@@ -39,7 +39,7 @@ Supabase credentials are read from `.env.local` (not committed):
 Routes live under `src/app` (App Router, with `(auth)` and `(main)` route groups for distinct layouts). Every `page.tsx` is a trivial wrapper that renders one component from `src/views/<feature>/`:
 
 ```tsx
-// src/app/(main)/reservation/page.tsx
+// src/app/(main)/reservation/[id]/page.tsx
 import ReservationPage from "@/views/reservation/ReservationPage";
 const Reservation = () => <ReservationPage />;
 export default Reservation;
@@ -48,6 +48,8 @@ export default Reservation;
 All real UI and logic (data fetching, state, layout composition) lives in `src/views/<feature>/<FeatureName>Page.tsx` plus a co-located `components/` folder. When adding a new page, create the view under `src/views/`, not inline in `src/app/`.
 
 Current features: `home`, `login`, `signup`, `tickets` (listing), `detail` (ticket detail), `reservation` (seat selection flow), `mypage`.
+
+`reservation`은 `/reservation/[id]` 동적 라우트이며, `id`는 `ticket_id`를 의미한다.
 
 ### Data layer
 

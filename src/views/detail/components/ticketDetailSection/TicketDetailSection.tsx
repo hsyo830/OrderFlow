@@ -19,7 +19,11 @@ const TicketDetailSection = ({ data }: TicketDetailSectionProps) => {
         <TicketNotice />
       </div>
       <SeatPriceSection data={data} />
-      <Button variant="primary" className="w-full py-4 md:col-span-2 md:py-4">
+      <Button
+        variant="primary"
+        href={`/reservation/${data.id}`}
+        className="w-full py-4 md:col-span-2 md:py-4"
+      >
         예매하기
       </Button>
     </section>
