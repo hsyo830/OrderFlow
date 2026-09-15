@@ -17,11 +17,11 @@ npm run lint     # eslint
 
 Node version is pinned via `.nvmrc` / `package.json#engines` to `24.x`.
 
-There is no `test` script in `package.json`, but `vitest` is installed and at least one test file exists (`src/utils/validator.test.ts`). Run tests directly with npx, no vitest config file exists so it uses defaults:
+There is no `test` script in `package.json`, but `vitest` is installed. Run tests directly with npx, no vitest config file exists so it uses defaults:
 
 ```bash
 npx vitest run                       # run all tests once
-npx vitest run src/utils/validator.test.ts   # run a single file
+npx vitest run <path/to/file.test.ts>   # run a single file
 npx vitest                           # watch mode
 ```
 
