@@ -2,6 +2,10 @@ import { TicketSeat } from "@/types/seat";
 
 type SeatMapProps = {
   seats: TicketSeat[];
+  selectedSeatIds: number[];
+  pendingSeatIds: Set<number>;
+  isSelectionFull: boolean;
+  onSeatClick: (seat: TicketSeat) => void;
 };
 
 const ROW_LABELS = ["A", "B", "C", "D", "E"] as const;
@@ -13,7 +17,17 @@ const SEATS_PER_ROW = 10;
 const getRowLabel = (seatId: number) => ROW_LABELS[Math.floor((seatId - 1) / SEATS_PER_ROW)];
 const getSeatNumber = (seatId: number) => ((seatId - 1) % SEATS_PER_ROW) + 1;
 
-const getSeatStyle = (grade: "VIP" | "R" | "S") => {
+const getSeatStyle = (grade: "VIP" | "R" | "S", isSelected: boolean) => {
+  if (isSelected) {
+    switch (grade) {
+      case "VIP":
+        return "bg-seat-vip-selected border-seat-vip-selected-border text-inverse";
+      case "R":
+        return "bg-seat-r-selected border-seat-r-selected-border text-inverse";
+      case "S":
+        return "bg-seat-s-selected border-seat-s-selected-border text-inverse";
+    }
+  }
   switch (grade) {
     case "VIP":
       return "bg-seat-vip-soft hover:bg-seat-vip-hover/20";
@@ -24,12 +38,13 @@ const getSeatStyle = (grade: "VIP" | "R" | "S") => {
   }
 };
 
-const SeatMap = ({ seats }: SeatMapProps) => {
-  const handleSeatClick = (seat: TicketSeat) => {
-    // TODO: 다음 단계에서 선택 상태 관리/HOLD 요청 로직으로 교체
-    console.log("seat clicked", seat);
-  };
-
+const SeatMap = ({
+  seats,
+  selectedSeatIds,
+  pendingSeatIds,
+  isSelectionFull,
+  onSeatClick,
+}: SeatMapProps) => {
   return (
     <div className="bg-surface-2 overflow-hidden rounded-xl">
       <div className="overflow-x-auto p-4 md:p-6">
@@ -52,16 +67,24 @@ const SeatMap = ({ seats }: SeatMapProps) => {
                   .sort((a, b) => getSeatNumber(a.seatId) - getSeatNumber(b.seatId))
                   .map((seat) => {
                     const isAvailable = seat.status === "AVAILABLE";
+                    const isSelected = selectedSeatIds.includes(seat.id);
+                    const isPending = pendingSeatIds.has(seat.id);
+                    const isSoldOut = !isAvailable && !isSelected;
+                    const isBlockedByLimit = !isSelected && !isSoldOut && isSelectionFull;
+                    const isDisabled = isSoldOut || isPending || isBlockedByLimit;
+
                     return (
                       <button
                         key={seat.id}
                         type="button"
-                        disabled={!isAvailable}
-                        onClick={() => handleSeatClick(seat)}
+                        disabled={isDisabled}
+                        onClick={() => onSeatClick(seat)}
                         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-transparent text-sm font-medium transition-colors ${
-                          isAvailable
-                            ? `cursor-pointer ${getSeatStyle(seat.grade)}`
-                            : "bg-seat-sold text-muted cursor-not-allowed"
+                          isSoldOut
+                            ? "bg-seat-sold text-muted cursor-not-allowed"
+                            : `${getSeatStyle(seat.grade, isSelected)} ${
+                                isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                              }`
                         }`}
                       >
                         {getSeatNumber(seat.seatId)}
