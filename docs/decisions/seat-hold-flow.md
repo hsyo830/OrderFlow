@@ -35,12 +35,14 @@ unmount/beforeunload에서 `releaseSeat`를 호출하는 로직은 이번 범위
 호출 단위가 좌석 1개이므로(결정 2) "배치 중 일부만 실패"하는 상황 자체가 없다.
 실패한 좌석은 선택 상태에 반영하지 않고, Toast로 실패를 알린 뒤 좌석 목록을
 refetch해서 최신 상태(다른 사용자가 이미 선점했을 수 있음)를 다시 보여준다.
+release(cancel) 실패에도 동일 패턴을 대칭 적용한다.
 
-> ⚠️ **플래그**: 이 코드베이스에는 현재 토스트/알림 라이브러리가 전혀 없다
-> (`package.json`에도 없고, 기존 비동기 에러 표시 선례인 `LoginPage.tsx`도
-> 폼 하단 인라인 문자열 하나뿐). 이번 작업에서 토스트를 도입하는 것 자체가
-> 새 UI 인프라를 처음 들이는 결정이라는 점을 인지하고 진행 필요 — 라이브러리
-> 선택(직접 구현 vs 외부 패키지) 여부는 별도로 정해야 한다.
+> ✅ **해결됨**: 토스트 라이브러리로 `sonner`를 도입했다(직접 구현 대신 라이브러리
+> 선택 — Toast 자체가 이번 작업의 핵심 구현 영역이 아니라는 판단). `src/app/layout.tsx`에
+> `<Toaster>`를 한 번 마운트하고, 색상은 새로 정의하지 않고 기존 디자인 토큰을
+> CSS 변수로 매핑해서 재사용한다. `ReservationContent.tsx`의 HOLD/release 실패
+> 처리는 기존 `seatError` 로컬 state + 인라인 에러 텍스트를 걷어내고 `toast.error(...)`
+> 호출로 교체했다.
 
 **7. ID 기준 — `TicketSeat.id`로 잠정 가정**
 `holdSeat`/`releaseSeat` 호출의 `ids`는 우선 `TicketSeat.id` 기준으로 구현한다.
@@ -77,7 +79,9 @@ holdUserId)`를 호출해 반납한다. 마음이 바뀐 좌석이 5분 동안 �
   기반 개수/금액 계산으로 교체
 - `src/services/seatService.ts` — 변경 없음(이미 `holdSeat`/`releaseSeat` 시그니처
   존재), 다만 `ids` 기준이 `seatId`로 확정되면 이 파일만 수정
-- Toast 관련: 새 컴포넌트/라이브러리 도입 필요 (결정 6의 플래그 참고)
+- Toast 관련: `sonner` 도입 완료 — `src/app/layout.tsx`(`<Toaster>` 마운트),
+  `src/views/reservation/components/ReservationContent.tsx`(`toast.error(...)` 사용)
+  (결정 6 참고)
 
 ## 다음 단계
 
