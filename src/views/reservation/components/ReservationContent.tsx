@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { fetchTicketSeats, holdSeat, releaseSeat } from "@/services/seatService";
 import { useAuthStore } from "@/stores/authStore";
@@ -19,7 +20,6 @@ type ReservationContentProps = {
 const ReservationContent = ({ data }: ReservationContentProps) => {
   const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
   const [pendingSeatIds, setPendingSeatIds] = useState<Set<number>>(new Set());
-  const [seatError, setSeatError] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
   const holdUserId = useAuthStore((state) => state.user?.id);
@@ -43,16 +43,13 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
     });
 
   const handleMutationError = (message: string) => {
-    setSeatError(message);
+    toast.error(message);
     queryClient.invalidateQueries({ queryKey: ["ticketSeats", data.id] });
   };
 
   const holdMutation = useMutation({
     mutationFn: (seat: TicketSeat) => holdSeat([seat.id], holdUserId!),
-    onMutate: (seat) => {
-      setSeatError(null);
-      addPendingSeat(seat.id);
-    },
+    onMutate: (seat) => addPendingSeat(seat.id),
     onSuccess: (_result, seat) => {
       setSelectedSeatIds((prev) => [...prev, seat.id]);
     },
@@ -63,10 +60,7 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
 
   const releaseMutation = useMutation({
     mutationFn: (seat: TicketSeat) => releaseSeat([seat.id], holdUserId!),
-    onMutate: (seat) => {
-      setSeatError(null);
-      addPendingSeat(seat.id);
-    },
+    onMutate: (seat) => addPendingSeat(seat.id),
     onSuccess: (_result, seat) => {
       setSelectedSeatIds((prev) => prev.filter((id) => id !== seat.id));
     },
@@ -88,7 +82,7 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
     if (pendingSeatIds.has(seat.id)) return;
 
     if (!holdUserId) {
-      setSeatError("로그인 후 좌석을 선택할 수 있습니다.");
+      toast.error("로그인 후 좌석을 선택할 수 있습니다.");
       return;
     }
 
@@ -100,7 +94,7 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
     }
 
     if (isSelectionFull) {
-      setSeatError(`좌석은 최대 ${MAX_SELECTABLE_SEATS}석까지 선택할 수 있습니다.`);
+      toast.error(`좌석은 최대 ${MAX_SELECTABLE_SEATS}석까지 선택할 수 있습니다.`);
       return;
     }
 
@@ -135,7 +129,6 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
               onSeatClick={handleSeatClick}
             />
           )}
-          {seatError && <p className="text-danger mt-3 text-sm">{seatError}</p>}
         </div>
         <div className="w-full shrink-0 lg:w-72 xl:w-80">
           <SelectedSeatSummary
