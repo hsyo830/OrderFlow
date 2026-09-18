@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
+import { blackHanSans } from "@/lib/fonts";
 import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 
@@ -34,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={blackHanSans.variable}>
       <body>
         <QueryProvider>
           <AuthProvider>{children}</AuthProvider>

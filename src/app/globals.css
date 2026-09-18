@@ -315,6 +315,9 @@
   --color-destructive: var(--destructive);
   --color-ring: var(--ring);
 
+  /* Font */
+  --font-logo: var(--font-black-han-sans);
+
   /* Radius */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
