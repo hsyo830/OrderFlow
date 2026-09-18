@@ -27,7 +27,7 @@ const MainPage = () => {
       <div className="mt-10 flex justify-center">
         <Container>
           <div className="flex flex-col gap-15">
-            <CategoryList />
+            {/* <CategoryList /> */}
             <PopularTicketList />
             <ServiceBannerList />
           </div>

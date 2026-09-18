@@ -23,7 +23,7 @@ const TicketPage = () => {
       </div>
       <div className="mt-10 flex justify-center">
         <Container>
-          <CategoryFilterList />
+          {/* <CategoryFilterList /> */}
           <TicketList searchQuery={searchQuery} />
         </Container>
       </div>
