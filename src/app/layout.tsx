@@ -3,12 +3,13 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
+import { blackHanSans } from "@/lib/fonts";
 import AuthProvider from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
 
 export const metadata: Metadata = {
-  title: "Ticketing",
-  description: "실시간 대기열과 좌석 선점을 지원하는 티켓 예매 서비스",
+  title: "자리요! | 공연 티켓 예매",
+  description: "기다리던 공연, 원하는 자리에서. 간편하게 공연을 예매해보세요.",
 };
 
 // sonner는 toast 타입별 색을 --normal-*/--success-*/--error-* CSS 변수로 읽는다
@@ -34,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={blackHanSans.variable}>
       <body>
         <QueryProvider>
           <AuthProvider>{children}</AuthProvider>

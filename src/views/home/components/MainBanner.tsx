@@ -30,7 +30,7 @@ const MainBanner = () => {
               <br />
               모든 티켓을 한 곳에서
             </div>
-            <Button variant="primary" className="mt-5 w-50 py-3 md:w-87 md:text-sm">
+            <Button href="/tickets" variant="primary" className="mt-5 w-50 py-3 md:w-87 md:text-sm">
               지금 인기 티켓 보기
             </Button>
           </div>
