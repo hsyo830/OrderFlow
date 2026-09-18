@@ -7,14 +7,16 @@ import Container from "@/components/layout/Container";
 
 interface SearchBarProps {
   placeholder?: string;
+  defaultValue?: string;
   onSearch?: (value: string) => void;
 }
 
 const SearchBar = ({
   placeholder = "공연, 아티스트, 팀, 장소를 검색해보세요",
+  defaultValue = "",
   onSearch,
 }: SearchBarProps) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
