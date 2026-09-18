@@ -24,7 +24,7 @@ const ReservationListItem = ({ data }: ReservationListItemProps) => {
       type="button"
       className="border-border bg-surface hover:bg-surface-2 grid w-full cursor-pointer grid-cols-[90px_minmax(0,1fr)] gap-4 rounded-xl border p-4 text-left transition-colors lg:grid-cols-[100px_minmax(0,1fr)_160px_140px_20px] lg:items-center"
     >
-      <div className="relative h-28 w-[90px] overflow-hidden rounded-lg lg:h-32 lg:w-[100px]">
+      <div className="relative h-28 w-22.5 overflow-hidden rounded-lg lg:h-32 lg:w-25">
         <Image src={data.image} alt={data.title} fill sizes="100px" className="object-cover" />
       </div>
 
