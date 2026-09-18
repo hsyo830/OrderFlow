@@ -26,7 +26,7 @@ const MyPage = () => {
   }
 
   return (
-    <div className="w-full py-10 md:py-14">
+    <div className="flex w-full justify-center py-10 md:py-14">
       <Container>
         <div className="mb-8">
           <h1 className="text-2xl font-bold">마이페이지</h1>

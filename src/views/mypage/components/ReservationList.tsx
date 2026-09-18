@@ -4,7 +4,7 @@ const reservations = [
   {
     id: 1,
     title: "IU CONCERT : THE WINNING",
-    image: "/images/tickets/iu.jpg",
+    image: "/images/tickets/iu-concert-cover.png",
     date: "2026.06.21",
     time: "19:00",
     venue: "KSPO DOME",
@@ -15,7 +15,7 @@ const reservations = [
   {
     id: 2,
     title: "BLACKPINK WORLD TOUR",
-    image: "/images/tickets/blackpink.jpg",
+    image: "/images/tickets/blackpink-concert-cover.png",
     date: "2026.07.05",
     time: "18:00",
     venue: "고척스카이돔",

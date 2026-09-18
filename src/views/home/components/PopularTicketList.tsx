@@ -19,7 +19,7 @@ const PopularTicketList = () => {
   const visibleTickets = data?.slice(0, 5);
 
   return (
-    <div className="flex w-full flex-col gap-3.5">
+    <div className="flex w-full flex-col gap-3.5 md:mt-10">
       <div className="flex items-center justify-between">
         <h3 className="subtitle">지금 가장 인기 있는 티켓</h3>
         <Link href="/tickets">

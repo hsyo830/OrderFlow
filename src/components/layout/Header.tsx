@@ -32,8 +32,8 @@ const Header = () => {
     <header className="flex w-full items-center justify-center border-b">
       <Container>
         <div className="flex w-full items-center justify-between py-5">
-          <Link href="/" className="text-brand text-xl font-bold">
-            TICKET
+          <Link href="/" className="font-logo text-brand text-xl">
+            JARIYO
           </Link>
 
           <nav className="hidden items-center gap-9 md:text-sm md:font-medium lg:flex">
