@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 import Container from "@/components/layout/Container";
 
-import CategoryList from "./components/CategoryList";
 import MainBanner from "./components/MainBanner";
 import PopularTicketList from "./components/PopularTicketList";
 import SearchBar from "./components/SearchBar";
@@ -27,7 +26,6 @@ const MainPage = () => {
       <div className="mt-10 flex justify-center">
         <Container>
           <div className="flex flex-col gap-15">
-            {/* <CategoryList /> */}
             <PopularTicketList />
             <ServiceBannerList />
           </div>
