@@ -7,15 +7,6 @@ type SelectedSeatSummaryProps = {
   maxSeats: number;
 };
 
-const ROW_LABELS = ["A", "B", "C", "D", "E"] as const;
-const SEATS_PER_ROW = 10;
-
-const getSeatLabel = (seatId: number) => {
-  const row = ROW_LABELS[Math.floor((seatId - 1) / SEATS_PER_ROW)];
-  const number = ((seatId - 1) % SEATS_PER_ROW) + 1;
-  return `${row}${number}`;
-};
-
 const SelectedSeatSummary = ({
   selectedSeats,
   totalAmount,
@@ -37,7 +28,7 @@ const SelectedSeatSummary = ({
           selectedSeats.map((seat) => (
             <div key={seat.id} className="flex items-center justify-between text-sm">
               <span className="font-medium">
-                {getSeatLabel(seat.seatId)} · {seat.grade}석
+                {`${seat.seat.seatRow}${seat.seat.seatNumber}`} · {seat.grade}석
               </span>
               <span className="text-muted">{seat.price.toLocaleString()}원</span>
             </div>
