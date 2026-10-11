@@ -7,17 +7,23 @@ import { useAuthStore } from "@/stores/authStore";
 import { TicketSeat } from "@/types/seat";
 import { TicketDetail } from "@/types/ticket";
 
+import ReservationConfirm from "./ReservationConfirm";
+import ReservationSteps from "./ReservationSteps";
 import SeatMap from "./SeatMap";
 import SelectedSeatSummary from "./SelectedSeatSummary";
 import TicketInfo from "./TicketInfo";
 
 const MAX_SELECTABLE_SEATS = 4;
 
+type ReservationStep = 1 | 2;
+
 type ReservationContentProps = {
   data: TicketDetail;
 };
 
 const ReservationContent = ({ data }: ReservationContentProps) => {
+  // step 전환 시 이 컴포넌트는 언마운트되지 않으므로 selectedSeatIds(와 서버의 HOLD)는 유지된다.
+  const [step, setStep] = useState<ReservationStep>(1);
   const [selectedSeatIds, setSelectedSeatIds] = useState<number[]>([]);
   const [pendingSeatIds, setPendingSeatIds] = useState<Set<number>>(new Set());
 
@@ -104,41 +110,63 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
   const selectedSeats = ticketSeats?.filter((seat) => selectedSeatIds.includes(seat.id)) ?? [];
   const totalAmount = selectedSeats.reduce((sum, seat) => sum + seat.price, 0);
 
+  // 확인 단계에서 선택 좌석이 비게 되면 빈 확인 화면 대신 좌석 선택 화면을 보여준다.
+  const isConfirmStep = step === 2 && selectedSeats.length > 0;
+
+  const goToConfirm = () => {
+    setStep(2);
+    window.scrollTo({ top: 0 });
+  };
+
   return (
-    <div className="border-border rounded-xl border p-4 md:p-6">
-      <TicketInfo data={data} />
-      <div className="border-border my-5 border-t md:my-6" />
-      <div className="flex flex-col gap-4 lg:flex-row">
-        <div className="min-w-0 flex-1">
-          {isLoading && (
-            <div className="text-muted flex h-40 items-center justify-center text-sm">
-              좌석 정보를 불러오는 중...
+    <>
+      <ReservationSteps currentStep={isConfirmStep ? 2 : 1} />
+      {isConfirmStep ? (
+        <ReservationConfirm
+          data={data}
+          selectedSeats={selectedSeats}
+          totalAmount={totalAmount}
+          onPrev={() => setStep(1)}
+        />
+      ) : (
+        <div className="border-border rounded-xl border p-4 md:p-6">
+          <TicketInfo data={data} />
+          <div className="border-border my-5 border-t md:my-6" />
+          <div className="flex flex-col gap-4 lg:flex-row">
+            <div className="min-w-0 flex-1">
+              {isLoading && (
+                <div className="text-muted flex h-40 items-center justify-center text-sm">
+                  좌석 정보를 불러오는 중...
+                </div>
+              )}
+              {error && (
+                <div className="text-muted flex h-40 items-center justify-center text-sm">
+                  좌석 정보를 불러오지 못했습니다.
+                </div>
+              )}
+              {ticketSeats && (
+                <SeatMap
+                  seats={ticketSeats}
+                  selectedSeatIds={selectedSeatIds}
+                  pendingSeatIds={pendingSeatIds}
+                  isSelectionFull={isSelectionFull}
+                  onSeatClick={handleSeatClick}
+                />
+              )}
             </div>
-          )}
-          {error && (
-            <div className="text-muted flex h-40 items-center justify-center text-sm">
-              좌석 정보를 불러오지 못했습니다.
+            <div className="w-full shrink-0 lg:w-72 xl:w-80">
+              <SelectedSeatSummary
+                selectedSeats={selectedSeats}
+                totalAmount={totalAmount}
+                maxSeats={MAX_SELECTABLE_SEATS}
+                isPending={pendingSeatIds.size > 0}
+                onNext={goToConfirm}
+              />
             </div>
-          )}
-          {ticketSeats && (
-            <SeatMap
-              seats={ticketSeats}
-              selectedSeatIds={selectedSeatIds}
-              pendingSeatIds={pendingSeatIds}
-              isSelectionFull={isSelectionFull}
-              onSeatClick={handleSeatClick}
-            />
-          )}
+          </div>
         </div>
-        <div className="w-full shrink-0 lg:w-72 xl:w-80">
-          <SelectedSeatSummary
-            selectedSeats={selectedSeats}
-            totalAmount={totalAmount}
-            maxSeats={MAX_SELECTABLE_SEATS}
-          />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

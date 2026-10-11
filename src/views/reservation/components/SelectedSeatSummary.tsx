@@ -5,12 +5,16 @@ type SelectedSeatSummaryProps = {
   selectedSeats: TicketSeat[];
   totalAmount: number;
   maxSeats: number;
+  isPending: boolean;
+  onNext: () => void;
 };
 
 const SelectedSeatSummary = ({
   selectedSeats,
   totalAmount,
   maxSeats,
+  isPending,
+  onNext,
 }: SelectedSeatSummaryProps) => {
   const hasSelection = selectedSeats.length > 0;
 
@@ -49,7 +53,12 @@ const SelectedSeatSummary = ({
             <span className="text-brand text-xl font-bold">{totalAmount.toLocaleString()}원</span>
           </div>
         </div>
-        <Button variant="primary" disabled={!hasSelection} className="w-full">
+        <Button
+          variant="primary"
+          disabled={!hasSelection || isPending}
+          onClick={onNext}
+          className="w-full"
+        >
           다음으로
         </Button>
       </div>
