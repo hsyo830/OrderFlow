@@ -8,15 +8,6 @@ type SeatMapProps = {
   onSeatClick: (seat: TicketSeat) => void;
 };
 
-const ROW_LABELS = ["A", "B", "C", "D", "E"] as const;
-const SEATS_PER_ROW = 10;
-
-// TicketSeat 응답 DTO에는 seatRow/seatNumber가 없음(API에 포함되는지 미확인).
-// seatService의 mock 시딩 순서(seatId 1~50을 10개씩 끊어 A~E행에 배정)에 기반한 임시
-// 매핑이며, 실제 좌석 배치 데이터/응답 계약이 확정되면 반드시 교체해야 한다.
-const getRowLabel = (seatId: number) => ROW_LABELS[Math.floor((seatId - 1) / SEATS_PER_ROW)];
-const getSeatNumber = (seatId: number) => ((seatId - 1) % SEATS_PER_ROW) + 1;
-
 const getSeatStyle = (grade: "VIP" | "R" | "S", isSelected: boolean) => {
   if (isSelected) {
     switch (grade) {
@@ -45,6 +36,10 @@ const SeatMap = ({
   isSelectionFull,
   onSeatClick,
 }: SeatMapProps) => {
+  const seatRows = [...new Set(seats.map((seat) => seat.seat.seatRow))].sort((a, b) =>
+    a.localeCompare(b),
+  );
+
   return (
     <div className="bg-surface-2 overflow-hidden rounded-xl">
       <div className="overflow-x-auto p-4 md:p-6">
@@ -56,15 +51,15 @@ const SeatMap = ({
           </div>
 
           <div className="flex flex-col gap-2.5">
-            {ROW_LABELS.map((row) => (
+            {seatRows.map((row) => (
               <div key={row} className="flex items-center justify-center gap-2.5">
                 <span className="text-muted w-6 shrink-0 text-center text-sm font-semibold">
                   {row}
                 </span>
 
                 {seats
-                  .filter((seat) => getRowLabel(seat.seatId) === row)
-                  .sort((a, b) => getSeatNumber(a.seatId) - getSeatNumber(b.seatId))
+                  .filter((seat) => seat.seat.seatRow === row)
+                  .sort((a, b) => Number(a.seat.seatNumber) - Number(b.seat.seatNumber))
                   .map((seat) => {
                     const isAvailable = seat.status === "AVAILABLE";
                     const isSelected = selectedSeatIds.includes(seat.id);
@@ -87,7 +82,7 @@ const SeatMap = ({
                               }`
                         }`}
                       >
-                        {getSeatNumber(seat.seatId)}
+                        {seat.seat.seatNumber}
                       </button>
                     );
                   })}

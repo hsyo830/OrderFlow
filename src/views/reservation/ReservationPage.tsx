@@ -9,7 +9,6 @@ import { fetchTicketDetail } from "@/services/ticketService";
 import { useAuthStore } from "@/stores/authStore";
 
 import ReservationContent from "./components/ReservationContent";
-import ReservationSteps from "./components/ReservationSteps";
 
 const ReservationPage = () => {
   const params = useParams();
@@ -33,7 +32,6 @@ const ReservationPage = () => {
   return (
     <main className="flex justify-center py-6 md:py-10">
       <Container>
-        <ReservationSteps currentStep={1} />
         <ReservationContent data={data} />
       </Container>
     </main>
