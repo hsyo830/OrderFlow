@@ -8,6 +8,7 @@ import { TicketSeat } from "@/types/seat";
 import { TicketDetail } from "@/types/ticket";
 
 import ReservationConfirm from "./ReservationConfirm";
+import ReservationPayment from "./ReservationPayment";
 import ReservationSteps from "./ReservationSteps";
 import SeatMap from "./SeatMap";
 import SelectedSeatSummary from "./SelectedSeatSummary";
@@ -15,7 +16,7 @@ import TicketInfo from "./TicketInfo";
 
 const MAX_SELECTABLE_SEATS = 4;
 
-type ReservationStep = 1 | 2;
+type ReservationStep = 1 | 2 | 3;
 
 type ReservationContentProps = {
   data: TicketDetail;
@@ -110,25 +111,38 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
   const selectedSeats = ticketSeats?.filter((seat) => selectedSeatIds.includes(seat.id)) ?? [];
   const totalAmount = selectedSeats.reduce((sum, seat) => sum + seat.price, 0);
 
-  // 확인 단계에서 선택 좌석이 비게 되면 빈 확인 화면 대신 좌석 선택 화면을 보여준다.
-  const isConfirmStep = step === 2 && selectedSeats.length > 0;
+  // 확인/결제 단계에서 선택 좌석이 비게 되면 빈 화면 대신 좌석 선택 화면을 보여준다.
+  // FIXME: 이때 내부 step은 2/3으로 남아 있어서, 좌석 선택 화면에서 좌석을 다시 고르면
+  // 1단계에 머무르지 않고 곧바로 이전 단계(2/3)로 넘어간다. (이번 범위에서는 미수정)
+  const currentStep: ReservationStep = selectedSeats.length > 0 ? step : 1;
 
-  const goToConfirm = () => {
-    setStep(2);
+  // 스크롤은 앞으로 갈 때만 맨 위로 올린다. 뒤로 갈 때는 위치를 유지한다.
+  const goToStep = (nextStep: ReservationStep) => {
+    setStep(nextStep);
     window.scrollTo({ top: 0 });
   };
 
   return (
     <>
-      <ReservationSteps currentStep={isConfirmStep ? 2 : 1} />
-      {isConfirmStep ? (
+      <ReservationSteps currentStep={currentStep} />
+      {currentStep === 2 && (
         <ReservationConfirm
           data={data}
           selectedSeats={selectedSeats}
           totalAmount={totalAmount}
           onPrev={() => setStep(1)}
+          onNext={() => goToStep(3)}
         />
-      ) : (
+      )}
+      {currentStep === 3 && (
+        <ReservationPayment
+          data={data}
+          selectedSeats={selectedSeats}
+          totalAmount={totalAmount}
+          onPrev={() => setStep(2)}
+        />
+      )}
+      {currentStep === 1 && (
         <div className="border-border rounded-xl border p-4 md:p-6">
           <TicketInfo data={data} />
           <div className="border-border my-5 border-t md:my-6" />
@@ -160,7 +174,7 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
                 totalAmount={totalAmount}
                 maxSeats={MAX_SELECTABLE_SEATS}
                 isPending={pendingSeatIds.size > 0}
-                onNext={goToConfirm}
+                onNext={() => goToStep(2)}
               />
             </div>
           </div>
