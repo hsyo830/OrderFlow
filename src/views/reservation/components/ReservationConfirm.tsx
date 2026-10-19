@@ -9,6 +9,7 @@ type ReservationConfirmProps = {
   selectedSeats: TicketSeat[];
   totalAmount: number;
   onPrev: () => void;
+  onNext: () => void;
 };
 
 type InfoRowProps = {
@@ -28,6 +29,7 @@ const ReservationConfirm = ({
   selectedSeats,
   totalAmount,
   onPrev,
+  onNext,
 }: ReservationConfirmProps) => {
   return (
     <div className="mx-auto w-full max-w-2xl">
@@ -63,9 +65,8 @@ const ReservationConfirm = ({
         <Button variant="outline-neutral" onClick={onPrev} className="flex-1">
           이전
         </Button>
-        {/* TODO: 결제 흐름 연결 (예약 생성 API 호출 시점은 백엔드와 협의 중) */}
-        <Button variant="primary" disabled className="flex-2">
-          결제하기 (준비 중)
+        <Button variant="primary" onClick={onNext} className="flex-2">
+          결제하기
         </Button>
       </div>
     </div>
