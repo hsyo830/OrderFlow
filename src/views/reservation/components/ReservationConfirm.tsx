@@ -68,7 +68,8 @@ const ReservationConfirm = ({
       </dl>
 
       <div className="mt-6 flex gap-3">
-        <Button variant="outline-neutral" onClick={onPrev} className="flex-1">
+        {/* 요청 중에 1단계로 돌아가 좌석을 바꾸지 못하게 막는다. */}
+        <Button variant="outline-neutral" disabled={isPending} onClick={onPrev} className="flex-1">
           이전
         </Button>
         <Button
