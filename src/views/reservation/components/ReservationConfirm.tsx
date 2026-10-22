@@ -8,8 +8,12 @@ type ReservationConfirmProps = {
   data: TicketDetail;
   selectedSeats: TicketSeat[];
   totalAmount: number;
+  /** 결과 불확실 상태 등으로 [결제하기]를 막아야 할 때 */
+  isDisabled: boolean;
+  /** 예약 생성 요청 중 */
+  isPending: boolean;
   onPrev: () => void;
-  onNext: () => void;
+  onPaymentClick: () => void;
 };
 
 type InfoRowProps = {
@@ -28,8 +32,10 @@ const ReservationConfirm = ({
   data,
   selectedSeats,
   totalAmount,
+  isDisabled,
+  isPending,
   onPrev,
-  onNext,
+  onPaymentClick,
 }: ReservationConfirmProps) => {
   return (
     <div className="mx-auto w-full max-w-2xl">
@@ -65,8 +71,13 @@ const ReservationConfirm = ({
         <Button variant="outline-neutral" onClick={onPrev} className="flex-1">
           이전
         </Button>
-        <Button variant="primary" onClick={onNext} className="flex-2">
-          결제하기
+        <Button
+          variant="primary"
+          disabled={isDisabled || isPending}
+          onClick={onPaymentClick}
+          className="flex-2"
+        >
+          {isPending ? "예약 생성 중..." : "결제하기"}
         </Button>
       </div>
     </div>

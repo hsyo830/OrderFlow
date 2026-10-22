@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ReactNode } from "react";
 
 import Button from "@/components/common/Button";
+import { CurrentReservation } from "@/types/reservation";
 import { TicketSeat } from "@/types/seat";
 import { TicketDetail } from "@/types/ticket";
 
@@ -9,6 +10,8 @@ type ReservationPaymentProps = {
   data: TicketDetail;
   selectedSeats: TicketSeat[];
   totalAmount: number;
+  /** 3단계는 예약이 생성된 뒤에만 진입하므로 항상 존재한다 */
+  reservation: CurrentReservation;
   onPrev: () => void;
 };
 
@@ -37,8 +40,13 @@ const ReservationPayment = ({
   data,
   selectedSeats,
   totalAmount,
+  reservation,
   onPrev,
 }: ReservationPaymentProps) => {
+  // 최종 결제 금액은 서버가 계산한 amount를 기준으로 한다.
+  // TODO(백엔드 미확정): amount와 좌석 가격 합계가 항상 일치하는지 (할인 등)
+  const isAmountMismatch = reservation.amount !== totalAmount;
+
   return (
     <div className="w-full">
       <h1 className="text-2xl font-bold md:text-3xl">결제하기</h1>
@@ -116,9 +124,14 @@ const ReservationPayment = ({
           <div className="bg-brand-soft mt-4 flex items-center justify-between gap-4 rounded-xl p-4 md:p-6">
             <span className="text-sm font-bold md:text-base">최종 결제 금액</span>
             <span className="text-brand text-xl font-bold md:text-2xl">
-              {totalAmount.toLocaleString()}원
+              {reservation.amount.toLocaleString()}원
             </span>
           </div>
+          {isAmountMismatch && (
+            <p className="bg-warning-soft text-warning mt-3 rounded-lg px-4 py-3 text-xs md:text-sm">
+              최종 결제 금액이 티켓 금액 합계와 다릅니다. 결제는 최종 결제 금액으로 진행됩니다.
+            </p>
+          )}
         </section>
       </div>
 
@@ -127,7 +140,7 @@ const ReservationPayment = ({
         <Button variant="outline-neutral" onClick={onPrev} className="py-4 lg:flex-1">
           이전
         </Button>
-        {/* TODO: 결제 흐름 연결 (예약 생성 API 호출 시점은 백엔드와 협의 중) */}
+        {/* TODO(feature/toss-payments): 토스 SDK 연결. reservation.orderId, reservation.amount로 결제창 실행 */}
         <Button variant="primary" disabled className="py-4 lg:flex-2">
           <span className="inline-flex items-center justify-center gap-1.5">
             {/* 원본 640x640(1:1). 투명 여백이 있어 글자보다 살짝 크게 둔다. */}
@@ -138,7 +151,7 @@ const ReservationPayment = ({
               height={640}
               className="size-5 shrink-0 md:size-6"
             />
-            <span>토스페이먼츠로 {totalAmount.toLocaleString()}원 결제하기 (준비 중)</span>
+            <span>토스페이먼츠로 {reservation.amount.toLocaleString()}원 결제하기 (준비 중)</span>
           </span>
         </Button>
       </div>
