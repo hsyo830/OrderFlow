@@ -324,6 +324,19 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
+
+  /* Animation */
+  --animate-shimmer: shimmer 1.5s ease-in-out infinite;
+
+  /* translate 유틸리티(-translate-x-full)와 같은 속성을 덮어써야 하므로 transform이 아닌 translate를 쓴다 */
+  @keyframes shimmer {
+    0% {
+      translate: -100% 0;
+    }
+    100% {
+      translate: 100% 0;
+    }
+  }
 }
 
 /* ========================================

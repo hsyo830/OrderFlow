@@ -8,6 +8,7 @@ import { fetchTickets } from "@/services/ticketService";
 
 import Pagination from "./Pagination";
 import TicketListItem from "./TicketListItem";
+import TicketListItemSkeleton from "./TicketListItemSkeleton";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -37,7 +38,18 @@ const TicketList = ({ searchQuery = "", page, onPageChange }: TicketListProps) =
     }
   }, [isLoading, error, page, currentPage, onPageChange]);
 
-  if (isLoading) return <div>불러오는 중...</div>;
+  if (isLoading) {
+    return (
+      <div className="w-full">
+        <div aria-busy="true" className="flex w-full flex-col gap-3">
+          <span className="sr-only">티켓 목록을 불러오는 중</span>
+          {Array.from({ length: ITEMS_PER_PAGE }).map((_, index) => (
+            <TicketListItemSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    );
+  }
   if (error) return <div>티켓을 불러오지 못했습니다.</div>;
 
   if (filteredData?.length === 0) {
