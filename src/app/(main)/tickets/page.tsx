@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 
+import TicketPageSkeleton from "@/views/tickets/components/TicketPageSkeleton";
 import TicketPage from "@/views/tickets/TicketPage";
 
 const Tickets = () => {
   return (
     <main>
-      <Suspense fallback={<div>불러오는 중...</div>}>
+      <Suspense fallback={<TicketPageSkeleton />}>
         <TicketPage />
       </Suspense>
     </main>
