@@ -5,6 +5,8 @@ type SeatMapProps = {
   selectedSeatIds: number[];
   pendingSeatIds: Set<number>;
   isSelectionFull: boolean;
+  /** 예약이 생성된 뒤에는 모든 좌석의 선택/해제를 막는다 */
+  isLocked: boolean;
   onSeatClick: (seat: TicketSeat) => void;
 };
 
@@ -34,6 +36,7 @@ const SeatMap = ({
   selectedSeatIds,
   pendingSeatIds,
   isSelectionFull,
+  isLocked,
   onSeatClick,
 }: SeatMapProps) => {
   const seatRows = [...new Set(seats.map((seat) => seat.seat.seatRow))].sort((a, b) =>
@@ -66,7 +69,9 @@ const SeatMap = ({
                     const isPending = pendingSeatIds.has(seat.id);
                     const isSoldOut = !isAvailable && !isSelected;
                     const isBlockedByLimit = !isSelected && !isSoldOut && isSelectionFull;
-                    const isDisabled = isSoldOut || isPending || isBlockedByLimit;
+                    const isDisabled = isLocked || isSoldOut || isPending || isBlockedByLimit;
+                    // 잠금 상태에서도 선택한 좌석은 흐리게 하지 않고 선택 스타일을 그대로 보여준다.
+                    const isDimmed = isDisabled && !(isLocked && isSelected);
 
                     return (
                       <button
@@ -78,8 +83,8 @@ const SeatMap = ({
                           isSoldOut
                             ? "bg-seat-sold text-muted cursor-not-allowed"
                             : `${getSeatStyle(seat.grade, isSelected)} ${
-                                isDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-                              }`
+                                isDisabled ? "cursor-not-allowed" : "cursor-pointer"
+                              } ${isDimmed ? "opacity-50" : ""}`
                         }`}
                       >
                         {seat.seat.seatNumber}
