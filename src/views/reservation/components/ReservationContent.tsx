@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import Spinner from "@/components/common/Spinner";
 import { createReservation } from "@/services/reservationService";
 import { fetchTicketSeats, holdSeat, releaseSeat } from "@/services/seatService";
 import { useAuthStore } from "@/stores/authStore";
@@ -256,8 +257,11 @@ const ReservationContent = ({ data }: ReservationContentProps) => {
           <div className="flex flex-col gap-4 lg:flex-row">
             <div className="min-w-0 flex-1">
               {isLoading && (
-                <div className="text-muted flex h-40 items-center justify-center text-sm">
-                  좌석 정보를 불러오는 중...
+                // lg:h-115(460px) = SeatMap의 lg 높이: p-6(24) + STAGE h-12(48) + mb-8(32)
+                // + 좌석 5열(A-E) h-12×5 + gap-2.5×4(280) + 범례 mt-8(32) + 1줄(20) + p-6(24)
+                <div aria-busy="true" className="flex h-40 items-center justify-center lg:h-115">
+                  <Spinner />
+                  <span className="sr-only">좌석 정보를 불러오는 중</span>
                 </div>
               )}
               {error && (
